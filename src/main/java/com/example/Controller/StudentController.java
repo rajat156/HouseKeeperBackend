@@ -28,5 +28,6 @@ public class StudentController {
 	public Student getStudent(@PathVariable("rollno") int rollnumber) {
 		return this.studentService.getStudent(rollnumber);
 		
+		
 	}
 }

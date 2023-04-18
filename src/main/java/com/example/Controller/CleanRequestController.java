@@ -48,4 +48,9 @@ public class CleanRequestController {
 	public List<CleanRequest> getAllCleanRequest(){
 	return this.cleanRequestService.getAllCleanRequest();
 	}
+	
+	@GetMapping("/getAllCleanRequestCount")
+	public long getAllCleanRequestCount() {
+		return this.cleanRequestService.getAllCleanRequestCount();
+	}
 }

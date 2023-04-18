@@ -33,4 +33,9 @@ public class CleanRequestService {
 		// TODO Auto-generated method stub
 		return this.cleanRequestRepo.findAll();
 	}
+
+	public long getAllCleanRequestCount() {
+		// TODO Auto-generated method stub
+		return this.cleanRequestRepo.count();
+	}
 }
