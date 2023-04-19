@@ -6,6 +6,7 @@ import java.time.LocalTime;
 
 import org.hibernate.annotations.ManyToAny;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,14 +21,19 @@ public class CleanRequest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int request_id;
-	
-	private int rollnumber;
-	
-	private int worker_id;
-	
+
 	private Date date;
 	
 	private LocalTime cleanTime;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rollnumber")
+	private Student student;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="worker_id")
+	private Worker worker;
+	
 	
 	private boolean req_status;
 
@@ -39,20 +45,23 @@ public class CleanRequest {
 		this.request_id = request_id;
 	}
 
-	public int getRollnumber() {
-		return rollnumber;
+	
+
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setRollnumber(int rollnumber) {
-		this.rollnumber = rollnumber;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	public int getWorker_id() {
-		return worker_id;
+
+	public Worker getWorker() {
+		return worker;
 	}
 
-	public void setWorker_id(int worker_id) {
-		this.worker_id = worker_id;
+	public void setWorker(Worker worker) {
+		this.worker = worker;
 	}
 
 	public Date getDate() {

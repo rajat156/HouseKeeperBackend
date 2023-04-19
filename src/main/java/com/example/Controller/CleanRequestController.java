@@ -29,8 +29,10 @@ public class CleanRequestController {
 	@PostMapping("/submitRequest/{rollno}")
 	public CleanRequest submitRequest(@PathVariable("rollno") int rollno,@RequestBody CleanRequest cleanRequest) {
 		
-		cleanRequest.setRollnumber(rollno);
-		
+		Student student = this.studentService.getStudent(rollno);
+		cleanRequest.setStudent(student);
+//		cleanRequest.setRollnumber(rollno);
+//		
 		return this.cleanRequestService.submitRequest(cleanRequest);
 	}
 	
@@ -41,7 +43,8 @@ public class CleanRequestController {
 	
 	@GetMapping("/getCleanRequestByRollnumber/{rollno}")
 	public List<CleanRequest> getCleanRequestByRollnumber(@PathVariable("rollno") int rollno){
-		return this.cleanRequestService.getRequestByRollnumber(rollno);
+		Student student = this.studentService.getStudent(rollno);
+		return this.cleanRequestService.getRequestByRollnumber(student);
 	}
 	
 	@GetMapping("/getAllCleanRequest")
@@ -52,5 +55,10 @@ public class CleanRequestController {
 	@GetMapping("/getAllCleanRequestCount")
 	public long getAllCleanRequestCount() {
 		return this.cleanRequestService.getAllCleanRequestCount();
+	}
+	
+	@GetMapping("/getRequestById/{id}")
+	public CleanRequest getCleanRequestById(@PathVariable("id") int id) {
+		return this.cleanRequestService.getCleanRequestById(id);
 	}
 }

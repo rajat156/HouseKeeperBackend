@@ -2,6 +2,7 @@ package com.example.Entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,10 +17,18 @@ public class Student {
 	private int floor;
 	private String hostel;
 	private String room;
+	//mappedBy = "student", 
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	private List<CleanRequest> request_id;
 	
 	
 	
-	
+	public List<CleanRequest> getRequest_id() {
+		return request_id;
+	}
+	public void setRequest_id(List<CleanRequest> request_id) {
+		this.request_id = request_id;
+	}
 	public String getRoom() {
 		return room;
 	}

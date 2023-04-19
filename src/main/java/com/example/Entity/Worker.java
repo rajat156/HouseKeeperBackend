@@ -1,5 +1,6 @@
 package com.example.Entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,9 +16,17 @@ public class Worker {
 	
 	private String name;
 	private int floor;
-
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private CleanRequest cleanRequest;
 	
 	
+	public CleanRequest getCleanRequest() {
+		return cleanRequest;
+	}
+	public void setCleanRequest(CleanRequest cleanRequest) {
+		this.cleanRequest = cleanRequest;
+	}
 	public int getWorker_id() {
 		return worker_id;
 	}

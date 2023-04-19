@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.Entity.CleanRequest;
+import com.example.Entity.Student;
 
 @Repository
 public interface CleanRequestRepo extends JpaRepository<CleanRequest, Integer>{
@@ -15,6 +16,6 @@ public interface CleanRequestRepo extends JpaRepository<CleanRequest, Integer>{
 	@Query(value="select count(request_id) from clean_request where rollnumber=:rollno",nativeQuery = true)
 public	List<Integer> requestCount(@Param("rollno")int rollno);
 
-	public List<CleanRequest> findAllByRollnumber(int rollno);
+	public List<CleanRequest> findAllByStudent(Student student);
 
 }
