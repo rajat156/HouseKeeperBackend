@@ -2,6 +2,8 @@ package com.example.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,24 +23,30 @@ public class CleanRequestService {
 		return this.cleanRequestRepo.saveAndFlush(cleanRequest);
 	}
 
-	public List<Integer> getRequestCount(int rollno) {
+	public List<Integer> getRequestCount(long rollno) {
 		
 		return this.cleanRequestRepo.requestCount(rollno);
 	}
 
 	public List<CleanRequest> getRequestByRollnumber(Student student) {
-		return this.cleanRequestRepo.findAllByStudent(student);
-		//return this.cleanRequestRepo.findAllByRollnumber(rollno);
+		List<CleanRequest> findAllByOrderByDateDesc = this.cleanRequestRepo.findAllByOrderByDateDesc();
+			List<CleanRequest> collect = findAllByOrderByDateDesc.stream().filter(item -> item.getStudent().equals(student)).collect(Collectors.toList());
+			return collect;
+			//return this.cleanRequestRepo.findAllByRollnumber(rollno);
 	}
 
-	public List<CleanRequest> getAllCleanRequest() {
+	public List<CleanRequest> getAllCleanRequest(String hostel) {
 		// TODO Auto-generated method stub
-		return this.cleanRequestRepo.findAll();
+		 List<CleanRequest> findAllByOrderByDateDesc = this.cleanRequestRepo.findAllByOrderByDateDesc();
+		return findAllByOrderByDateDesc.stream().filter(item -> item.getStudent().getHostel().equals(hostel)).collect(Collectors.toList());
 	}
 
-	public long getAllCleanRequestCount() {
+	public Integer getAllCleanRequestCount(String hostel) {
 		// TODO Auto-generated method stub
-		return this.cleanRequestRepo.count();
+		List<CleanRequest> findAll = this.cleanRequestRepo.findAll();
+		List<CleanRequest> collect = findAll.stream().filter(item -> item.getStudent().getHostel().equals(hostel)).collect(Collectors.toList());
+		
+		return collect.size();
 	}
 
 	public CleanRequest getCleanRequestById(int id) {

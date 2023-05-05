@@ -9,5 +9,5 @@ public class HousekeeperApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HousekeeperApplication.class, args);
 	}
-
+	
 }

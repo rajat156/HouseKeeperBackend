@@ -20,13 +20,14 @@ public class HouseKeeperController {
 	@Autowired
 	private WorkerService workerService;
 	
-	@PostMapping("/registerWorker")
-	public Worker registerWorker(@RequestBody Worker worker) {
-		return this.workerService.registerWorker(worker);
+	@PostMapping("/registerWorker/{hostel}")
+	public Worker registerWorker(@RequestBody Worker worker,@PathVariable("hostel") String hostel) {
+		worker.setHostel(hostel);
+		return this.workerService.registerWorker(worker);	
 	}
 	
-	@GetMapping("/getHouseKeeperByFloor/{floor}")
-	public List<Worker> getWorkerByFloor(@PathVariable("floor") int floor){
-		return this.workerService.getWorkerByFloor(floor);
+	@GetMapping("/getHouseKeeperByFloor/{floor}/{hostel}")
+	public List<Worker> getWorkerByFloor(@PathVariable("floor") int floor,@PathVariable("hostel") String hostel){
+		return this.workerService.getWorkerByFloor(floor,hostel);
 	}
 }

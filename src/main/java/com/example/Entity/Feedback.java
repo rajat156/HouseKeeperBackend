@@ -1,38 +1,54 @@
 package com.example.Entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Feedback {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int feedback_id;
-	private int rollnumber;
-	private int request_id;
+	private long feedback_id;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="rollnumber")
+	private Student student;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "request_id")
+	private CleanRequest cleanRequest;
+	
 	@Column(length = 3000)
 	private String feedback;
-	public int getFeedback_id() {
+	
+	
+	public long getFeedback_id() {
 		return feedback_id;
 	}
-	public void setFeedback_id(int feedback_id) {
+	public void setFeedback_id(long feedback_id) {
 		this.feedback_id = feedback_id;
 	}
-	public int getRollnumber() {
-		return rollnumber;
+	
+	
+	
+	public Student getStudent() {
+		return student;
 	}
-	public void setRollnumber(int rollnumber) {
-		this.rollnumber = rollnumber;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
-	public int getRequest_id() {
-		return request_id;
+	public CleanRequest getCleanRequest() {
+		return cleanRequest;
 	}
-	public void setRequest_id(int request_id) {
-		this.request_id = request_id;
+	public void setCleanRequest(CleanRequest cleanRequest) {
+		this.cleanRequest = cleanRequest;
 	}
 	public String getFeedback() {
 		return feedback;

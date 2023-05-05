@@ -2,6 +2,9 @@ package com.example.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,17 +15,28 @@ import jakarta.persistence.OneToMany;
 public class Student {
 
 	@Id
-	private int rollnumber;
+	private long rollnumber;
 	private String password;
 	private int floor;
 	private String hostel;
 	private String room;
-	//mappedBy = "student", 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Feedback> feedbacks;
+	
+	//mappedBy = "student",
+	@OneToMany( cascade =  { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	//@JsonManagedReference(value="student_request")
 	private List<CleanRequest> request_id;
 	
 	
 	
+	public List<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+	public void setFeedbacks(List<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
 	public List<CleanRequest> getRequest_id() {
 		return request_id;
 	}
@@ -36,10 +50,10 @@ public class Student {
 		this.room = room;
 	}
 	
-	public int getRollnumber() {
+	public long getRollnumber() {
 		return rollnumber;
 	}
-	public void setRollnumber(int rollnumber) {
+	public void setRollnumber(long rollnumber) {
 		this.rollnumber = rollnumber;
 	}
 	public String getPassword() {

@@ -1,5 +1,6 @@
 package com.example.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,30 @@ public class StudentService {
 	public Student saveStudent(Student student) {
 		return this.studentRepo.saveAndFlush(student);
 	}
-
-
-	public Student getStudent(int rollnumber) {
-		
-		 
+	
+	public Student getStudent(long rollnumber) {	 
 		 return this.studentRepo.findByRollnumber(rollnumber);
+	}
+
+	public List<Student> getStudent() {
+		// TODO Auto-generated method stub
+		return this.studentRepo.findAll();
+	}
+
+	public Student checkStudent(Student student) {
+		// TODO Auto-generated met1hod stub
+		List<Student> findAll = this.studentRepo.findAll();
+		
+		for(Student stu:findAll) {
+			if(student.getRollnumber()==stu.getRollnumber() && student.getPassword().equals(stu.getPassword())) {
+				return stu;
+			}
+		}
+		return null;
+	}
+
+	public List<Student> getAllStudentByHostel(String hostel) {
+		// TODO Auto-generated method stub
+		return this.studentRepo.findAllByHostel(hostel);
 	}
 }
